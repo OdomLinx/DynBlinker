@@ -8,23 +8,27 @@ class dynblinker {
 
 private:
   uint8_t pin;
-  uint16_t NUM_PIXELS;
-  uint16_t startpixel;
-  uint16_t endpixel;
-  uint16_t offset;
+  uint16_t NUM_PIXELS,
+      startpixel,
+      endpixel,
+      blinkoncount,
+      blinkoffcount,
+      blinkinterval,
+      blinkerdelayinterval,
+      getoffset(),
+      getrealpixel(uint16_t pixel);
   uint32_t color;
+  unsigned long blinkpreviousMillis,
+      blinkerpreviousMillis;
+  bool blinkerdelay(),
+      blinkerdelayed;
+
+
+
   Adafruit_NeoPixel strip;
-  bool blinkonrun;
-  bool blinkonready;
-  uint16_t blinkoncount;
-  bool blinkoffrun;
-  bool blinkoffready;
-  uint16_t blinkoffcount;
-  unsigned long blinkpreviousMillis;
-  uint16_t blinkinterval;
-  unsigned long blinkdpreviousMillis;
-  uint16_t blinkdinterval;
-  bool blinkddelayed;
+
+  void  setpin(uint8_t pin),
+      init();
 
 public:
   dynblinker(uint8_t pin, uint16_t NUM_PIXELS); // Default initial, use all
@@ -32,15 +36,18 @@ public:
   dynblinker(uint8_t pin, uint16_t startpixel,
              uint16_t endpixel); // use only defined pixel
 
-  void begin();
-  void setPixel(uint16_t pixel, uint32_t color);
-  void blink();
-  void blinkon();
-  void blinkoff();
-  void clear();
-
-  // void setRGB(int r, int g, int b) ;
-  // void blink(char color, byte times, unsigned int ms);
+  void begin(),
+      setNUM_PIXELS(uint16_t NUM_PIXELS),
+      setNUM_PIXELS(uint16_t startpixel, uint16_t endpixel),
+      setstartpixel(uint16_t startpixel),
+      setendpixel(uint16_t endpixel),
+      setblinkinterval(uint16_t blinkinterval),
+      setblinkerdelayinterval(uint16_t blinkdelayinterval),
+      setPixel(uint16_t pixel, uint32_t color),
+      blink(),
+      blinkon(),
+      blinkoff(),
+      clear();
 };
 
 #endif
